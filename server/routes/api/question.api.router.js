@@ -1,9 +1,21 @@
 const router = require('express').Router();
-const { Question, User } = require('../../db/models');
+const {
+  Question, User, Category, Cost,
+} = require('../../db/models');
 
 router.get('/', async (req, res) => {
   try {
-    const questions = await Question.findAll();
+    const questions = await Question.findAll({
+      include: [
+        {
+          model: Category,
+          attributes: ['id', 'title'],
+        }, {
+          model: Cost,
+          attributes: ['id', 'cost'],
+        },
+      ],
+    });
     const response = { message: 'success', questions };
     res.send(response);
   } catch ({ message }) {
@@ -14,7 +26,18 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const question = await Question.findOne({ where: { id } });
+    const question = await Question.findOne({
+      where: { id },
+      include: [
+        {
+          model: Category,
+          attributes: ['id', 'title'],
+        }, {
+          model: Cost,
+          attributes: ['id', 'cost'],
+        },
+      ],
+    });
     const response = { message: 'success', question };
     res.send(response);
   } catch ({ message }) {
