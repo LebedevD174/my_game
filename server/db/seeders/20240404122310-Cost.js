@@ -13,18 +13,28 @@ module.exports = {
     await queryInterface.bulkInsert('Costs', [
       {
         cost: 200,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         cost: 400,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         cost: 600,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         cost: 800,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         cost: 1000,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ], {});
   },

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     cost: DataTypes.TEXT,
   }, {
     sequelize,
-    modelName: 'Scores',
+    modelName: 'Costs',
   });
   return Scores;
 };
