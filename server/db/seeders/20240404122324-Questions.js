@@ -128,7 +128,11 @@ module.exports = {
       ...category3,
       ...category4,
       ...category5,
-    ], {});
+    ].map((el) => ({
+      ...el,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })), {});
   },
 
   async down(queryInterface, Sequelize) {

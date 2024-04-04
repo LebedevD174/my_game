@@ -13,18 +13,28 @@ module.exports = {
     await queryInterface.bulkInsert('Categories', [
       {
         title: 'Категория 1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: 'Категория 2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: 'Категория 3',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: 'Категория 4',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: 'Категория 5',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ], {});
   },
