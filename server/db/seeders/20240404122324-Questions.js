@@ -15,22 +15,27 @@ module.exports = {
       {
         title: 'Вопрос 1',
         answer: 'Ответ 1',
+        img: '',
       },
       {
         title: 'Вопрос 2',
         answer: 'Ответ 2',
+        img: '',
       },
       {
         title: 'Вопрос 3',
         answer: 'Ответ 3',
+        img: '',
       },
       {
         title: 'Вопрос 4',
         answer: 'Ответ 4',
+        img: '',
       },
       {
         title: 'Вопрос 5',
         answer: 'Ответ 5',
+        img: '',
       },
     ].map((el, i) => ({ ...el, cost_id: i + 1, category_id: 1 }));
     const category2 = [
