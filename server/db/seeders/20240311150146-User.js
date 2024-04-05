@@ -15,6 +15,7 @@ module.exports = {
       ...el,
       email: `${el.name}@email.com`,
       password,
+      scores: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     })), {});
