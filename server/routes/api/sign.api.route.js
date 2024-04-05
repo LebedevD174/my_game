@@ -43,7 +43,7 @@ router.post('/in', async (req, res) => {
           id: user.id, email: user.email, name: user.name, role: user.role,
         },
       });
-
+      res.locals.user = user
       res
         .cookie(jwtConfig.refresh.type, refreshToken, {
           maxAge: jwtConfig.refresh.expiresIn,
@@ -71,8 +71,10 @@ router.post('/up', async (req, res) => {
       res.json({ message: 'Заполните поля корректно' });
       return;
     }
-    if (email.trim().length !== email.length || email.replace(' ', '').length !== email.length) {
-      res.json({ message: 'E-mail не должен содержать пробелов' });
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailCheck = pattern.test(email);
+    if (emailCheck) {
+      res.json({ message: 'Некорректно заполнен e-mail' });
       return;
     }
     if (password.trim().length !== password.length || password.replace(' ', '').length !== password.length || r_password.trim().length !== r_password.length || r_password.replace(' ', '').length !== r_password.length) {
@@ -86,10 +88,13 @@ router.post('/up', async (req, res) => {
     if (password !== r_password) {
       res.json({ message: 'Пароль не совпадает' });
     } else {
+
+
       const newUser = await User.create({
         email,
         password: await bcrypt.hash(password, 10),
         name,
+        scores: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -100,6 +105,8 @@ router.post('/up', async (req, res) => {
         },
       });
 
+
+      res.locals.user = newUser;
       res
         .cookie(jwtConfig.refresh.type, refreshToken, {
           maxAge: jwtConfig.refresh.expiresIn,
@@ -119,12 +126,31 @@ router.post('/up', async (req, res) => {
 
 router.get('/out', async (req, res) => {
   try {
+    const user = {
+      id: 0,
+      email: '',
+      password: '',
+      name: '',
+      createdAt: '',
+      updatedAt: '',
+    };
     res
       .clearCookie(jwtConfig.access.type)
       .clearCookie(jwtConfig.refresh.type);
-    res.json({ message: 'success', user: undefined });
+    res.json({ message: 'success', user });
   } catch ({ message }) {
     console.log(message);
+  }
+});
+
+router.get('/check', async (req, res) => {
+  try {
+    if (res.locals.user) {
+      const user = await User.findOne({ where: { id: res.locals.user.id } });
+      res.json({ user });
+    }
+  } catch ({ message }) {
+    res.json(message);
   }
 });
 

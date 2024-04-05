@@ -1,12 +1,14 @@
-import React, {useState, } from 'react';
+import React, {useEffect, useState, } from 'react';
 import { useSelector } from 'react-redux';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import type {User, UserInForm} from "./types/user"
 import { useAppDispatch } from '../../app/redux/store';
+import { useNavigate } from 'react-router-dom';
 
 
 function SignInForm(): JSX.Element {
+    const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [form, setForm] = useState({
         email: '',
@@ -28,14 +30,15 @@ function SignInForm(): JSX.Element {
         blur?.classList.remove('active')
     }
     async function getUser(): Promise<void> {
-        
-        const findUser: UserInForm = users.find((el: User) => el.email === findUser.email)
-        if (findUser) {
-            const passwordCheck: AxiosResponse<{message: string, user: User}> = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/sign/in`, findUser)
-        } else {
-            setTitle('Такого пользователя не существует')
-            getModal()
-        }
+        console.log(user);
+            const serverCheck: AxiosResponse<{message: string, user: User}> = await axios.post(`/api/sign/in`, form)
+            if (serverCheck.data.message === 'success') {
+                dispatch({type: 'users/signin', payload: serverCheck.data.user})
+                navigate('/main')
+            } else {
+                setTitle(serverCheck.data.message)
+                getModal()
+            }
     }
 
     return (

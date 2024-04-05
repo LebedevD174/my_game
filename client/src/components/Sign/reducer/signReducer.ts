@@ -47,7 +47,15 @@ export const SignReducer = (
             case 'users/logout':
             return {
                 ...state,
-                user: undefined
+                user: {
+                    id: 0,
+                    email: '',
+                    password: '',
+                    name: '',
+                    scores: 0,
+                    createdAt: '',
+                    updatedAt: '',
+                  }
             }
         default:
             return state;

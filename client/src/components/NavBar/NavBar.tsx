@@ -1,9 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { User } from '../Sign/types/user';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../app/redux/store';
+import axios, { AxiosResponse } from 'axios';
 
 function NavBar(): React.ReactElement {
+    const user: User = useSelector((store: RootState) => store.users.user);
+    const dispatch = useAppDispatch();
+async function logout(): Promise<void> {
+    const res: AxiosResponse<{message: string}> = await axios.get(`api/sign/out`)
+    console.log(res.data);
+    
+    if (res.data.message === "success") {
+        dispatch({type: 'users/logout'})
+    }
+}
+
     return (
     <nav className="left drawer min">
+        {user.id !== 0 && <div>Привет, {user.name}</div>}
+        {user.id !== 0 && <div>Очки, {user.scores}</div>}
          <Link to='/main'>
             <i>home</i>
             <div>Home</div>
@@ -20,7 +37,7 @@ function NavBar(): React.ReactElement {
             <i>Help</i>
             <div>Questions</div>
         </Link>
-        <Link to='/logout'>
+        <Link onClick={() => logout()}>
             <i>Logout</i>
             <div>Logout</div>
         </Link>
