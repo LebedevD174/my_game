@@ -39,12 +39,12 @@ function QuestList(): JSX.Element {
     }
 
     return (
-        <main className="responsive">
+        <main className="responsive ">
             <div className="overlay blur" />
                 <dialog id='quest' className='extra'>
                     <div>{quest.Category.title}</div>
                     <h5>{quest.title}</h5>
-                    <img src={quest.img} alt="" className='responsive extra'/>
+                    {quest.img ? <img src={quest.img} alt="" className='responsive extra'/> : <div></div>}
                     <div className="field label border round">
                             <input type="text" value={form} onChange={(event) => setForm(event.target.value)}/>
                             <label>Введите ответ</label>
