@@ -13,29 +13,24 @@ module.exports = {
 
     const category1 = [
       {
-        title: 'Вопрос 1',
-        answer: 'Ответ 1',
-        img: '',
+        title: 'Что нужно сделать для того чтобы понять Рекурсию?',
+        answer: 'Понять рекурсию',
       },
       {
-        title: 'Вопрос 2',
-        answer: 'Ответ 2',
-        img: '',
+        title: 'Транслит слова - ПШЕ?',
+        answer: 'git',
       },
       {
-        title: 'Вопрос 3',
-        answer: 'Ответ 3',
-        img: '',
+        title: 'Какой тип данных у значения NULL?',
+        answer: 'object',
       },
       {
-        title: 'Вопрос 4',
-        answer: 'Ответ 4',
-        img: '',
+        title: 'let name = "Вася"; \n function sayHi() \n { alert(name); } \n setTimeout(function() { \n let name = "Петя"; \n sayHi(); }, 1000);',
+        answer: 'Вася',
       },
       {
-        title: 'Вопрос 5',
-        answer: 'Ответ 5',
-        img: '',
+        title: 'Что выведет следующий код? var output = (function(x) { \n delete x; \n return x; \n })(0);',
+        answer: '0',
       },
     ].map((el, i) => ({ ...el, cost_id: i + 1, category_id: 1 }));
     const category2 = [
