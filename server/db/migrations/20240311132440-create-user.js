@@ -19,6 +19,9 @@ module.exports = {
       password: {
         type: Sequelize.TEXT
       },
+      scores: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

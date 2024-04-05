@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios';
 import axios, { Axios } from 'axios';
 import { isAction } from 'redux';
 import type { RootState } from '../../app/redux/store';
-import type { Quest, QuestID } from './types/Quest';
+import type { Quest } from './types/Quest';
 import { useAppDispatch } from "../../app/redux/store"
 
 function QuestList(): JSX.Element {
@@ -17,8 +17,10 @@ function QuestList(): JSX.Element {
     function getQuest(quest: Quest): void{
         dispatch({type: 'questions/view', payload: quest})
         // console.log(quest);
+        const blur = document.querySelector('.blur');
         const questCard = document.getElementById('quest');
         questCard?.classList.add('active')
+        blur?.classList.add('active')
     }
     function getAnswer(): void{
         console.log(form);
@@ -29,17 +31,21 @@ function QuestList(): JSX.Element {
         answerCard?.classList.add('active')
     }
     function closeWithoutAnswer(): void {
+        const blur = document.querySelector('.blur');
         const questCard = document.getElementById('quest');
         questCard?.classList.remove('active')
+        blur?.classList.remove('active')
     }
     function close(): void {
+        const blur = document.querySelector('.blur');
         const answerCard = document.getElementById('answer');
         answerCard?.classList.remove('active')
+        blur?.classList.remove('active')
         setForm('')
     }
 
     return (
-        <main className="responsive ">
+        <main className="responsive fill medium-height middle-align center-align">
             <div className="overlay blur" />
                 <dialog id='quest' className='extra'>
                     <div>{quest.Category.title}</div>
@@ -62,7 +68,7 @@ function QuestList(): JSX.Element {
                     </nav>
                 </dialog>
         {categories && (
-            <table className="border">
+            <table className="border fill">
             <tbody>
                 {categories.map((el) => (
                     <tr key={el.id}>
@@ -76,42 +82,6 @@ function QuestList(): JSX.Element {
         </table>
         )}
         </main>
-        
-
-// <table class="border">
-//   <thead>
-//     <tr>
-//       <th>Header</th>
-//       <th>Header</th>
-//       <th>Header</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//     </tr>
-//     <tr>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//     </tr>
-//     <tr>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//       <td>Cell</td>
-//     </tr>
-//   </tbody>
-//   <tfoot>
-//     <tr>
-//       <th>Footer</th>
-//       <th>Footer</th>
-//       <th>Footer</th>
-//     </tr>
-//   </tfoot>
-// </table>
-
     );
 }
 

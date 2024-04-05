@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import {QuestReducer} from '../../components/Quest/reducer/questReducer';
-// import { AuthReducer } from '../../components/Auth/AuthReducer';
+import { SignReducer } from '../../components/Sign/reducer/signReducer';
  
 
 const rootReducer = combineReducers({
   quest: QuestReducer,
-  // user: AuthReducer
+  users: SignReducer,
 });
 
 export default rootReducer;

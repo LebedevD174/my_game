@@ -4,6 +4,16 @@ const signUtils = require('../../utils/signUtils');
 const jwtConfig = require('../../config/jwtConfig');
 const { User } = require('../../db/models');
 
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.findAll();
+    const response = { message: 'success', users };
+    res.json(response);
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+
 router.post('/in', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -28,7 +38,6 @@ router.post('/in', async (req, res) => {
     if (!passTest) {
       res.json({ message: 'Пароль не совпадает' });
     } else {
-
       const { accessToken, refreshToken } = signUtils({
         user: {
           id: user.id, email: user.email, name: user.name, role: user.role,
