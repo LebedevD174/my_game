@@ -3,8 +3,10 @@ import { useAppDispatch } from '../../app/redux/store';
 import { useSelector } from 'react-redux';
 import axios, { AxiosResponse } from 'axios';
 import { User } from './types/user';
+import { useNavigate } from 'react-router-dom';
 
 function SignInForm(): JSX.Element {
+  const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [form, setForm] = useState({
       email: '',
@@ -33,6 +35,7 @@ function SignInForm(): JSX.Element {
           if (serverCheck.data.message === 'success') {
               dispatch({type: 'users/signup', payload: serverCheck.data.user})
               dispatch({type: 'users/signin', payload: serverCheck.data.user})
+              navigate('/main')
           } else {
               setTitle(serverCheck.data.message)
               getModal()
