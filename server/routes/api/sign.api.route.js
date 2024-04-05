@@ -13,6 +13,32 @@ router.get('/', async (req, res) => {
     res.json({ message });
   }
 });
+router.put('/plus/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cost } = req.body;
+    const user = await User.findOne({ where: { id } });
+    const newScores = +user.scores + +cost;
+    await User.update({ scores: newScores }, { where: { id } });
+    const response = { message: 'success', scores: newScores };
+    res.json(response);
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
+router.put('/minus/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cost } = req.body;
+    const user = await User.findOne({ where: { id } });
+    const newScores = +user.scores - +cost;
+    await User.update({ scores: newScores }, { where: { id } });
+    const response = { message: 'success', scores: newScores };
+    res.json(response);
+  } catch ({ message }) {
+    res.json({ message });
+  }
+});
 
 router.post('/in', async (req, res) => {
   try {
@@ -43,7 +69,7 @@ router.post('/in', async (req, res) => {
           id: user.id, email: user.email, name: user.name, role: user.role,
         },
       });
-      res.locals.user = user
+      res.locals.user = user;
       res
         .cookie(jwtConfig.refresh.type, refreshToken, {
           maxAge: jwtConfig.refresh.expiresIn,
@@ -88,8 +114,6 @@ router.post('/up', async (req, res) => {
     if (password !== r_password) {
       res.json({ message: 'Пароль не совпадает' });
     } else {
-
-
       const newUser = await User.create({
         email,
         password: await bcrypt.hash(password, 10),
@@ -104,7 +128,6 @@ router.post('/up', async (req, res) => {
           id: newUser.id, email: newUser.email, name: newUser.name,
         },
       });
-
 
       res.locals.user = newUser;
       res

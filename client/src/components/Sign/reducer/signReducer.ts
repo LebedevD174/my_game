@@ -2,7 +2,7 @@ import type { Action } from "../../../app/redux/Action";
 import type { User } from "../types/user";
 
 type State = {
-    user: User | undefined
+    user: User
     users: User[]
 }
 
@@ -12,6 +12,7 @@ export const initState = {
         id: 0,
         email: '',
         name: '',
+        scores: 0,
         password: '',
         createdAt: '',
         updatedAt: '',
@@ -57,6 +58,11 @@ export const SignReducer = (
                     updatedAt: '',
                   }
             }
+            case 'users/scores':
+                return {
+                    ...state,
+                    user: {...state.user, scores: action.payload}
+                }
         default:
             return state;
     }
