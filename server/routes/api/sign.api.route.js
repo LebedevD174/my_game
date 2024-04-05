@@ -99,7 +99,7 @@ router.post('/up', async (req, res) => {
     }
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const emailCheck = pattern.test(email);
-    if (emailCheck) {
+    if (!emailCheck) {
       res.json({ message: 'Некорректно заполнен e-mail' });
       return;
     }
