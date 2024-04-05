@@ -6,7 +6,7 @@ import NavBar from '../components/NavBar/NavBar';
 import Main from '../components/Main';
 import QuestCard from '../components/Quest/Quest';
 import QuestList from '../components/Quest/QuestList';
-import { Quest } from '../components/Quest/types/Quest';
+import { Category, Quest } from '../components/Quest/types/Quest';
 // import './App.css';
 
 
@@ -22,10 +22,22 @@ function App(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     dispatch({type: 'questions/load', payload: response.data.questions})
   }
-  
  }
+ async function getCategories(): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+  const response: AxiosResponse<{message: string, categories: Category[]}> = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/categories/`);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  console.log(response.data)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (response.data.message === "success") {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    dispatch({type: 'categories/load', payload: response.data.categories})
+  }
+ }
+
  useEffect(() => {
   getQuestions().catch((err) => console.log(err))
+  getCategories().catch((err) => console.log(err))
  }, [])
   return (
     <BrowserRouter>
