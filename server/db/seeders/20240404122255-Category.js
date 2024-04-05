@@ -22,17 +22,17 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        title: 'Категория 3',
+        title: 'Голливуд по молодухе',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: 'Категория 4',
+        title: 'Угадай Рекламу',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: 'Категория 5',
+        title: 'А разгадай',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
