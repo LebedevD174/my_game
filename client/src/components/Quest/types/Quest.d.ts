@@ -13,5 +13,14 @@ export type Quest = {
         id: number,
         cost: number,
     }
+    createdAt: Date,
+    updatedAt: Date,
 }
 export type QuestID = Pick<Quest, 'id'>;
+
+export type Category = {
+    id: number,
+    title: string,
+    createdAt: Date,
+    updatedAt: Date,
+}
