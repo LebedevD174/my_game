@@ -17,7 +17,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        title: '',
+        title: 'Ну че пацаны Оняме?',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
