@@ -13,3 +13,4 @@ export type Action =
     | { type: 'users/signin'; payload: User }
     | { type: 'users/signup'; payload: User }
     | { type: 'users/logout'}
+    | { type: 'users/scores'}
