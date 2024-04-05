@@ -11,7 +11,7 @@ module.exports = {
       {
         name: 'Valera',
       },
-    ].map((el, i) => ({
+    ].map((el) => ({
       ...el,
       email: `${el.name}@email.com`,
       password,

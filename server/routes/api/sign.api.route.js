@@ -28,7 +28,6 @@ router.post('/in', async (req, res) => {
     if (!passTest) {
       res.json({ message: 'Пароль не совпадает' });
     } else {
-      res.locals.user = user;
 
       const { accessToken, refreshToken } = signUtils({
         user: {
@@ -46,7 +45,7 @@ router.post('/in', async (req, res) => {
           httpOnly: true,
         });
 
-      res.json({ message: 'success' });
+      res.json({ message: 'success', user });
     }
   } catch ({ message }) {
     res.json({ message });
@@ -86,8 +85,6 @@ router.post('/up', async (req, res) => {
         updatedAt: new Date(),
       });
 
-      res.locals.user = newUser;
-
       const { accessToken, refreshToken } = signUtils({
         user: {
           id: newUser.id, email: newUser.email, name: newUser.name,
@@ -104,7 +101,7 @@ router.post('/up', async (req, res) => {
           httpOnly: true,
         });
 
-      res.json({ message: 'success' });
+      res.json({ message: 'success', user: newUser });
     }
   } catch ({ message }) {
     res.json({ message });
@@ -116,7 +113,7 @@ router.get('/out', async (req, res) => {
     res
       .clearCookie(jwtConfig.access.type)
       .clearCookie(jwtConfig.refresh.type);
-    res.redirect('/');
+    res.json({ message: 'success', user: undefined });
   } catch ({ message }) {
     console.log(message);
   }
